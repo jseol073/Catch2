@@ -17,17 +17,19 @@ environment:
         - additional_flags: ""
           wmain: 0
 
+        - additional_flags: "/D_UNICODE /DUNICODE"
+          wmain: 1
+          coverage: 0
+
+        # Have a coverage dimension
         - additional_flags: ""
           wmain: 0
           coverage: 1
 
+        # Have an examples dimension
         - additional_flags: ""
           wmain: 0
           examples: 1
-
-        - additional_flags: "/D_UNICODE /DUNICODE"
-          wmain: 1
-          coverage: 0
 
 
 matrix:
@@ -36,19 +38,28 @@ matrix:
           additional_flags: "/permissive- /std:c++latest"
 
         - os: Visual Studio 2015
-          coverage: 1
+          additional_flags: "/D_UNICODE /DUNICODE"
 
-        - os: Visual Studio 2015
-          examples: 1
+        # Exclude unwanted coverage configurations
+        - coverage: 1
+          platform: Win32
 
-        - configuration: Release
-          coverage: 1
+        - coverage: 1
+          os: Visual Studio 2015
 
-        - configuration: Release
-          examples: 1
+        - coverage: 1
+          configuration: Release
 
-init:
-  - git config --global core.autocrlf input
+        # Exclude unwanted examples configurations
+        - examples: 1
+          platform: Win32
+
+        - examples: 1
+          os: Visual Studio 2015
+
+        - examples: 1
+          configuration: Release
+
 
 install:
   - ps: if (($env:CONFIGURATION) -eq "Debug" -And ($env:coverage) -eq "1" ) { python -m pip install codecov }
