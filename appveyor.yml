@@ -17,13 +17,35 @@ environment:
         - additional_flags: ""
           wmain: 0
 
+        - additional_flags: ""
+          wmain: 0
+          coverage: 1
+
+        - additional_flags: ""
+          wmain: 0
+          examples: 1
+
         - additional_flags: "/D_UNICODE /DUNICODE"
           wmain: 1
+          coverage: 0
+
 
 matrix:
     exclude:
         - os: Visual Studio 2015
           additional_flags: "/permissive- /std:c++latest"
+
+        - os: Visual Studio 2015
+          coverage: 1
+
+        - os: Visual Studio 2015
+          examples: 1
+
+        - configuration: Release
+          coverage: 1
+
+        - configuration: Release
+          examples: 1
 
 init:
   - git config --global core.autocrlf input
