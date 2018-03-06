@@ -51,8 +51,8 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: if (($env:CONFIGURATION) -eq "Debug" ) { python -m pip install codecov }
-  - ps: if (($env:CONFIGURATION) -eq "Debug" ) { .\misc\installOpenCppCoverage.ps1 }
+  - ps: if (($env:CONFIGURATION) -eq "Debug" -And ($env:coverage) -eq "1" ) { python -m pip install codecov }
+  - ps: if (($env:CONFIGURATION) -eq "Debug" -And ($env:coverage) -eq "1" ) { .\misc\installOpenCppCoverage.ps1 }
 
 # Win32 and x64 are CMake-compatible solution platform names.
 # This allows us to pass %PLATFORM% to CMake -A.
